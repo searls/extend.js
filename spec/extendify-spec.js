@@ -31,10 +31,9 @@ describe(".extend", function() {
 	});
 	
 	describe("the stuff you might pass it", function() {
+		var name = 'panda', result;
 		context("like functions", function() {
-			var func = function() {}, 
-					name = 'panda', 
-					result;
+			var func = function() {};
 			afterEach(function() {
 			  delete window[name];
 			});
@@ -78,13 +77,40 @@ describe(".extend", function() {
 			  });
 			});
 		});
+		context("like objects", function() {
+			var obj = { a: 'A', b: 'B' };
+			context("passed a new object", function() {
+				beforeEach(function() {
+					result = extend(name,obj);
+				});
+				
+				it("defines the object", function() {
+				  expect(window[name]).toBe(obj);
+				});
+				
+				it("returns the object", function() {
+				  expect(result).toBe(obj);
+				});
+			});
 
-		context("passed a new object", function() {
-
-		});
-
-		context("passed an object when one already exists", function() {
-
+			context("passed an object when one already exists", function() {
+				beforeEach(function() {
+				  extend(name,obj);
+					result = extend(name, { b: "B'", c: 'C' });
+				});
+				
+				it("retains the property of the original", function() {
+				  expect(result.a).toBe(obj.a);
+				});
+				
+				it("overrides the common property", function() {
+				  expect(result.b).toBe("B'");
+				});
+				
+				it("defines the all-new property", function() {
+				  expect(result.c).toBe('C');
+				});
+			});		  
 		});
 	});
 });

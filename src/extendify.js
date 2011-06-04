@@ -10,7 +10,12 @@
 		if(_(parent[leaf]).isFunction() && parent[leaf] !== value) {
 			throw 'Cannot define a new function "'+name+'", because one is already defined.';
 		}
-		return parent[leaf] = value;		
+		
+		if(parent[leaf] && !_(value).isFunction() && !_(parent[leaf]).isFunction()) {
+			return _(parent[leaf]).extend(value);
+		} else {
+			return parent[leaf] = value;
+		}
 	};
 	window.extend.noConflict = function() {
 		var ourExtend = window.extend;
