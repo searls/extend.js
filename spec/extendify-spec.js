@@ -32,35 +32,49 @@ describe(".extend", function() {
 	
 	describe("the stuff you might pass it", function() {
 		context("like functions", function() {
-			var func = function() {}, result;
+			var func = function() {}, 
+					name = 'panda', 
+					result;
+			afterEach(function() {
+			  delete window[name];
+			});
 			context("passed a new function", function() {
 				beforeEach(function() {
-				  result = extend('blerg',func);
+				  result = extend(name,func);
 				});
 				it("defines the function", function() {
-				  expect(blerg).toBe(func);
+				  expect(window[name]).toBe(func);
 				});
 				it("returns the function too", function() {
 				  expect(result).toBe(func);
 				});
 			});
 			context("passed a function when one already exists ", function() {
-				var thrown,name = 'panda';
+				var thrown;
 				beforeEach(function() {
 				  extend(name,func);
 					try {
 						extend(name,function() {});	
 					} catch(e) {
 						thrown = e;
-					}					
+					}
 				});
 				it("throws an error", function() {
 				  expect(thrown).toBe('Cannot define a new function "'+name+'", because one is already defined.');
 				});
 			});
 			context("passed a function when the one that exists is the same function", function() {
+				var thrown;
+				beforeEach(function() {
+				  extend(name,func);
+					try {
+						extend(name,func);	
+					} catch(e) {
+						thrown = e;
+					}
+				});
 			  it("doesn't throw anything", function() {
-			    
+					expect(thrown).not.toBeDefined();
 			  });
 			});
 		});
