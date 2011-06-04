@@ -1,5 +1,4 @@
-extend.js
-=========
+# extend.js
 
 Ever wanted a nice tidy way to build out a JavaScript namespace without needing to adopt a broader framework to do it for you? Me too.
 
@@ -9,15 +8,14 @@ And do you like your JavaScript dependencies to be tiny? I ask, because extend.j
 
 The only thing extend.js depends on is [Underscore.js](http://documentcloud.github.com/underscore/), because Underscore.js is so fantastic that I'd happily force it on strangers.
 
-Usage
------
+## Usage
 
 To get started, pull in underscore.js & extend.js
 
     <script type="text/javascript" src="lib/underscore-min.js"></script>
     <script type="text/javascript" src="lib/extend.0.0.1.min.js"></script>
 
-## Extending a namespace right off window
+### Extending a namespace right off window
 
 To start building a namespace on the window:
 
@@ -26,7 +24,7 @@ To start building a namespace on the window:
      });
      widgets.fizbots.cranks; //=> { cranking: true }
 
-You can use extend to define functions, too:
+You can use extend.js to define functions, too:
 
     extend('plato.form.Chair',function(){
       return { legs: [1,2,3,4] };
@@ -43,7 +41,7 @@ You can also override object definitions:
     });
     window.cats; //=> { longCat: 'is long', ceilingCat: 'is watching you' }
 
-## Extending your own custom namespace root
+### Extending your own custom namespace root
 
 Your project probably already has a namespace root, so you can tell extend.js to add the `extend` method to your namespace. Let's say your namespace root is `window.pants`:
 
@@ -52,6 +50,8 @@ Your project probably already has a namespace root, so you can tell extend.js to
 Now you can do this:
 
     pants.extend('components.zipper',{ position: 'up' }); //=> pants.components.zipper 
+
+### No-conflict mode
 
 If you only plan on using extend.js on your custom namespace (which is hopefully the case), you can reclaim the window.extend namespace by throwing extend.js into no-conflict mode:
 
