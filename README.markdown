@@ -1,6 +1,8 @@
 # extend.js
 
-Ever wanted a way to build out a namespace in your JavaScript without adopting a larger framework to do it for you? Me too.
+Ever wanted a nice tidy way to build out a JavaScript namespace without needing to adopt a broader framework to do it for you? Me too.
+
+You just hand it an arbitrarily nested namespace (as a string), the object or function you want to occupy that namespace, and all extend.js does is define that namespace while preserving whatever objects are already defined.
 
 The only thing it depends on is [Underscore.js](http://documentcloud.github.com/underscore/), because Underscore.js is so fantastic that I'd happily force it on strangers.
 
@@ -9,21 +11,21 @@ To get started, pull in underscore.js & extend.js
     <script type="text/javascript" src="underscore-min.js"></script>
     <script type="text/javascript" src="extend.js"></script>
 
-## Extending window
+## Extending a namespace right off window
 
 To start building a namespace on the window:
 
      extend('widgets.fizbots.cranks',{
        cranking: true
      });
-     window.widgets.fizbots.cranks; //=> { cranking: true }
+     widgets.fizbots.cranks; //=> { cranking: true }
 
 You can use extend to define functions, too:
 
     extend('plato.form.Chair',function(){
       return { legs: [1,2,3,4] };
     }); 
-    window.plato.form.Chair(); //=> { legs: [1,2,3,4] }
+    plato.form.Chair(); //=> { legs: [1,2,3,4] }
 
 You can override object definitions, too:
 
@@ -37,7 +39,7 @@ You can override object definitions, too:
 
 ## Extending your own custom namespace root
 
-Your project already has a namespace root, so you can add the extend method to your own namespace. Let's say your namespace root is `window.pants`:
+Your project probably already has a namespace root, so you can tell extend.js to add the `extend` method to your namespace. Let's say your namespace root is `window.pants`:
 
     extend.myNamespace(pants); //=> pants.extend (Function)
 
