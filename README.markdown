@@ -4,12 +4,14 @@ Ever wanted a nice tidy way to build out a JavaScript namespace without needing 
 
 You just hand it an arbitrarily nested namespace (as a string), the object or function you want to occupy that namespace, and all extend.js does is define that namespace while preserving whatever objects are already defined.
 
+And do you like your JavaScript dependencies to be tiny? Because extend.js is only **600 bytes**. May my JavaScript friends who [obsesses](http://twitter.com/dmosher/status/73158951235108866) over the size of each dependency delight in its tinyness.
+
 The only thing it depends on is [Underscore.js](http://documentcloud.github.com/underscore/), because Underscore.js is so fantastic that I'd happily force it on strangers.
 
 To get started, pull in underscore.js & extend.js
 
-    <script type="text/javascript" src="underscore-min.js"></script>
-    <script type="text/javascript" src="extend.js"></script>
+    <script type="text/javascript" src="lib/underscore-min.js"></script>
+    <script type="text/javascript" src="lib/extend.0.0.1.min.js"></script>
 
 ## Extending a namespace right off window
 
