@@ -74,3 +74,20 @@ describe(".extend", function() {
 		});
 	});
 });
+
+describe(".noConflict", function() {
+	var theExtendBeingSpecifiedHere,result;
+	beforeEach(function() {
+		theExtendBeingSpecifiedHere = window.extend;
+	  result = extend.noConflict();
+	});
+	afterEach(function() {
+	  window.extend = theExtendBeingSpecifiedHere;
+	});
+	it("relinquishes control of window.extend to its previous owner", function() {
+	  expect(window.previousOwnerOfExtend).toBe(window.extend);
+	});
+	it("returns the .extend function", function() {
+	  expect(result).toBe(theExtendBeingSpecifiedHere);
+	});
+});
