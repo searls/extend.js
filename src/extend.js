@@ -34,6 +34,7 @@
 	
 	window.extend.myNamespace = function(namespace) {
 		namespace.extend = makeExtender(namespace);
+		return namespace.extend;
 	};
 	
 	window.extend.noConflict = function() {

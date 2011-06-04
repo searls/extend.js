@@ -142,13 +142,17 @@ describe(".extend", function() {
 });
 
 describe("extend.myNamespace", function() {
-	var namespace = {};
+	var namespace = {},result;
 	beforeEach(function() {
-	  extend.myNamespace(namespace);
+	  result = extend.myNamespace(namespace);
 	});
   it("it adds an 'extend' function to an arbitrary object", function() {
     expect(namespace.extend).toBeDefined();
   });
+
+	it("returns the new extend method", function() {
+	  expect(result).toBe(namespace.extend);
+	});
 
 	behavesLikeAnExtender(namespace);
 });
