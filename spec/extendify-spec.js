@@ -34,9 +34,6 @@ describe(".extend", function() {
 		var name = 'panda', result;
 		context("like functions", function() {
 			var func = function() {};
-			afterEach(function() {
-			  delete window[name];
-			});
 			context("passed a new function", function() {
 				beforeEach(function() {
 				  result = extend(name,func);
@@ -111,6 +108,31 @@ describe(".extend", function() {
 				  expect(result.c).toBe('C');
 				});
 			});		  
+		});
+		
+		context("passed nothing", function() {
+			var result;
+		  context("when nothing exists", function() {
+				beforeEach(function() {
+				  result = extend(name);
+				});
+		    it("returns undefined", function() {
+		      expect(result).not.toBeDefined();
+		    });
+		  });
+			context("when something already exists", function() {
+				beforeEach(function() {
+					extend(name,'fun!');
+					result = extend(name);
+				});
+			  it("returns that something", function() {
+			    expect(result).toBe('fun!');
+			  });
+			});
+		});
+		
+		afterEach(function() {
+		  delete window[name];
 		});
 	});
 });
