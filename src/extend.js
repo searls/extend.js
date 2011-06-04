@@ -1,6 +1,4 @@
 (function(_) {
-	var originalExtend = window.extend;
-	
 	var makeExtender = function(top) {
 		return function(name,value) {
 			var ancestors = name.split('.'),
@@ -11,10 +9,8 @@
 
 			return isExtensible(parent[leaf],value) ? _(parent[leaf]).extend(value) : parent[leaf] = value;
 		};
-	}
-	
-	window.extend = makeExtender(window);
-	
+	};
+
 	var isExtensible = function(existing,value) {
 		return existing && !_(value).isFunction() && !_(existing).isFunction();
 	};
@@ -31,6 +27,10 @@
 			throw 'Cannot define a new function "'+name+'", because one is already defined.';
 		}
 	};
+	
+	var originalExtend = window.extend;
+
+	window.extend = makeExtender(window);
 	
 	window.extend.myNamespace = function(namespace) {
 		namespace.extend = makeExtender(namespace);
