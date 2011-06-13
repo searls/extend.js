@@ -7,7 +7,7 @@ var behavesLikeAnExtender = function(top) {
       beforeEach(function() {
         top.extend('panda',value);
       });
-      it("creates a single object on the top", function() {		
+      it("creates a single object on the top", function() {
         expect(top.panda).toBe(value);
       });
     });
@@ -50,7 +50,7 @@ var behavesLikeAnExtender = function(top) {
         beforeEach(function() {
           top.extend(name,func);
           try {
-            top.extend(name,function() {});	
+            top.extend(name,function() {});
           } catch(e) {
             thrown = e;
           }
@@ -64,7 +64,7 @@ var behavesLikeAnExtender = function(top) {
         beforeEach(function() {
           top.extend(name,func);
           try {
-            top.extend(name,func);	
+            top.extend(name,func);
           } catch(e) {
             thrown = e;
           }
@@ -107,7 +107,7 @@ var behavesLikeAnExtender = function(top) {
         it("defines the all-new property", function() {
           expect(result.c).toBe('C');
         });
-      });		  
+      });
     });
 
     context("passed nothing", function() {
