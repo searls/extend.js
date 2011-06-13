@@ -8,7 +8,12 @@
 
       verifyDistinctness(name,value,parent[leaf]);
 
-      return isExtensible(parent[leaf],value) ? _(parent[leaf]).extend(value) : parent[leaf] = value;
+      if(isExtensible(parent[leaf],value)) {
+        _(parent[leaf]).extend(value);
+      } else if(arguments.length > 1) {
+        parent[leaf] = value;
+      }
+      return parent[leaf];
     };
   };
 
@@ -24,7 +29,7 @@
   };
 
   var verifyDistinctness = function(name,value,existing) {
-    if(_(existing).isFunction() && existing !== value) {
+    if(_(existing).isFunction() && value && existing !== value) {
       throw 'Cannot define a new function "'+name+'", because one is already defined.';
     }
   };

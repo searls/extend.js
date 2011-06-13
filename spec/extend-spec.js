@@ -73,6 +73,24 @@ var behavesLikeAnExtender = function(top) {
           expect(thrown).not.toBeDefined();
         });
       });
+      context("passed a function when the one that exists but no second arg is given", function() {
+        var result,thrown;
+        beforeEach(function() {
+          top.extend(name,func);
+          try {
+            result = top.extend(name);
+          } catch(e) {
+            thrown = e;
+          }
+        });
+        it("doesn't throw anything", function() {
+          expect(thrown).not.toBeDefined();
+        });
+
+        it("returns the defined function", function() {
+          expect(result).toBe(func);
+        });
+      });
     });
     context("like objects", function() {
       var obj = { a: 'A', b: 'B' };
