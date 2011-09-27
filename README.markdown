@@ -13,7 +13,7 @@ The only thing extend.js depends on is [Underscore.js](http://documentcloud.gith
 To get started, pull in underscore.js & extend.js
 
     <script type="text/javascript" src="lib/underscore-min.js"></script>
-    <script type="text/javascript" src="lib/extend.0.0.1.min.js"></script>
+    <script type="text/javascript" src="lib/extend.0.0.2.min.js"></script>
 
 ### Extending a namespace right off window
 
