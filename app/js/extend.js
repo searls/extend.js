@@ -1,4 +1,3 @@
-// https://github.com/searls/extend.js
 (function(_) {
   var makeExtender = function(top) {
     return function(name,value) {

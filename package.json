@@ -1,0 +1,13 @@
+{
+  "name": "extend",
+  "version": "0.0.2",
+  "description": "a teeny-tiny JavaScript namespacing script ",
+  "homepage": "https://github.com/searls/extend.js",
+  "author": {
+    "name": "Justin Searls",
+    "company": "Test Double, LLC"
+  },
+  "dependencies": {
+    "lineman": "~0.11.0"
+  }
+}

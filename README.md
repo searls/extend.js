@@ -28,7 +28,7 @@ You can use extend.js to define functions, too:
 
     extend('plato.form.Chair',function(){
       return { legs: [1,2,3,4] };
-    }); 
+    });
     plato.form.Chair(); //=> { legs: [1,2,3,4] }
 
 You can also override object definitions:
@@ -49,12 +49,12 @@ Your project probably already has a namespace root, so you can tell extend.js to
 
 Now you can do this:
 
-    pants.extend('components.zipper',{ position: 'up' }); //=> pants.components.zipper 
+    pants.extend('components.zipper',{ position: 'up' }); //=> pants.components.zipper
 
 ### No-conflict mode
 
 If you only plan on using extend.js on your custom namespace (which is hopefully the case), you can reclaim the window.extend namespace by throwing extend.js into no-conflict mode:
 
-    extend.noConflict(); //returns extend.js 
+    extend.noConflict(); //returns extend.js
 
 This will return extend.js itself while restoring `window.extend` to whatever occupied it previously.
