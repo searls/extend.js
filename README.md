@@ -8,9 +8,7 @@ And do you like your JavaScript dependencies to be tiny? I ask, because extend.j
 
 The only thing extend.js depends on is [Underscore.js](http://documentcloud.github.com/underscore/), because Underscore.js is so fantastic that I'd happily force it on strangers.
 
-[Download Development Version (Unminified)](https://github.com/searls/extend.js/releases/0.0.2/1869/extend.js)
-
-[Download Production Version (Minified)](https://github.com/searls/extend.js/releases/0.0.2/1870/extend.min.js)
+[Download the latest release here](https://github.com/searls/extend.js/releases)
 
 ## Usage
 
