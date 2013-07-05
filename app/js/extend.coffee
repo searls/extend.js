@@ -1,6 +1,6 @@
 makeExtender = (top) ->
   (name, value) ->
-    ancestors = name.split('.')
+    ancestors = name.split(/[./\\]/g)
     leaf = ancestors.pop()
     parent = resolveAncestors(ancestors, top)
 

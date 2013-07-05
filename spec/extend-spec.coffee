@@ -10,13 +10,26 @@ behavesLikeAnExtender = (top) ->
       it "creates a single object on the top", ->
         expect(top.panda).toBe(value)
 
-
     context "passed period-delimited identifiers", ->
       beforeEach ->
         top.extend("code.retreat", value)
 
       it "creates an object for each identifier", ->
         expect(top.code.retreat).toBe(value)
+
+    context "passed forward-slash-delimited identifiers", ->
+      beforeEach ->
+        top.extend("pants/sale/time", value)
+
+      it "creates an object for each identifier", ->
+        expect(top.pants.sale.time).toBe(value)
+
+    context "passed back-slash-delimited identifiers", ->
+      beforeEach ->
+        top.extend("test\\pollution\\sucks", value)
+
+      it "creates an object for each identifier", ->
+        expect(top.test.pollution.sucks).toBe(value)
 
 
     context "passed a humorously deep number of identifiers", ->
