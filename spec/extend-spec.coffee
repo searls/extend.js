@@ -168,8 +168,8 @@ describe "extend.myNamespace", ->
   it "it adds an 'extend' function to an arbitrary object", ->
     expect(namespace.extend).toBeDefined()
 
-  it "returns the new extend method", ->
-    expect(result).toBe(namespace.extend)
+  it "returns the namespace object", ->
+    expect(result).toBe(namespace)
 
   behavesLikeAnExtender(namespace)
 
