@@ -25,7 +25,7 @@ window.extend = makeExtender(window)
 
 #sprinkle on utility functions
 window.extend.myNamespace = (namespace) ->
-  _(namespace).tap (ns) ->
+  _(namespace or {}).tap (ns) ->
     ns.extend = makeExtender(ns)
 
 window.extend.noConflict = ->

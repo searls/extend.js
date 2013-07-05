@@ -162,16 +162,28 @@ describe ".extend", ->
 describe "extend.myNamespace", ->
   namespace = {}
   result = undefined
-  beforeEach ->
-    result = extend.myNamespace(namespace)
 
-  it "it adds an 'extend' function to an arbitrary object", ->
-    expect(namespace.extend).toBeDefined()
+  context "with an existing namespace object", ->
+    beforeEach ->
+      result = extend.myNamespace(namespace)
 
-  it "returns the namespace object", ->
-    expect(result).toBe(namespace)
+    it "it adds an 'extend' function to an arbitrary object", ->
+      expect(namespace.extend).toBeDefined()
 
-  behavesLikeAnExtender(namespace)
+    it "returns the namespace object", ->
+      expect(result).toBe(namespace)
+
+    behavesLikeAnExtender(namespace)
+    # behavesLikeAnExtender(result)
+
+  context "without an existing namespace object", ->
+    beforeEach ->
+      result = extend.myNamespace()
+
+    it "it adds an 'extend' function to a new namespace object", ->
+      expect(result.extend).toBeDefined()
+
+    # behavesLikeAnExtender(result)
 
 describe "extend.noConflict", ->
   theExtendBeingSpecifiedHere = undefined
