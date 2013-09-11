@@ -4,24 +4,24 @@ makeExtender = (top) ->
     leaf = ancestors.pop()
     parent = resolveAncestors(ancestors, top)
 
-    verifyDistinctness(name, values[0], parent[leaf])
+    verifyDistinctness(name, values, parent[leaf])
 
     if isExtensible(parent[leaf], values)
       _(parent[leaf]).extend(values...)
     else if arguments.length > 1
-      parent[leaf] = values[0]; #what to do here?
+      parent[leaf] = values.pop();
     parent[leaf]
 
 isExtensible = (existing, values) ->
-  existing? && !_(values).some(_.isFunction) && !_(existing).isFunction()
+  existing? && !_(values).any(_.isFunction) && !_(existing).isFunction()
 
 resolveAncestors = (ancestors, top) ->
   _(ancestors).reduce (ancestor, child) ->
     ancestor[child] ||= {}
   , top
 
-verifyDistinctness = (name, value, existing) ->
-  if _(existing).isFunction() && value? && existing != value
+verifyDistinctness = (name, values, existing) ->
+  if _(existing).isFunction() && _(values).any((v) -> existing != v)
     throw "Cannot override \"#{name}\", because it is already defined as a function."
 
 
