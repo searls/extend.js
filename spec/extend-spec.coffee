@@ -132,6 +132,24 @@ behavesLikeAnExtender = (top) ->
         it "defines the all-new property", ->
           expect(result.c).toBe("C")
 
+      context "passed multiple objects", ->
+        beforeEach ->
+          top.extend(name, obj)
+          result = top.extend name,
+            b: "B'"
+            c: "C"
+          ,
+            c: "C'"
+            d: "D"
+
+        it "merges objects right-to-left", ->
+          expect(result).toEqual
+            a: "A"
+            b: "B'"
+            c: "C'"
+            d: "D"
+
+
     context "passed nothing", ->
       result = undefined
       context "when nothing exists", ->

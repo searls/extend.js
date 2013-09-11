@@ -1,19 +1,19 @@
 makeExtender = (top) ->
-  (name, value) ->
+  (name, values...) ->
     ancestors = name.split(/[./\\]/g)
     leaf = ancestors.pop()
     parent = resolveAncestors(ancestors, top)
 
-    verifyDistinctness(name, value, parent[leaf])
+    verifyDistinctness(name, values[0], parent[leaf])
 
-    if isExtensible(parent[leaf], value)
-      _(parent[leaf]).extend(value)
+    if isExtensible(parent[leaf], values)
+      _(parent[leaf]).extend(values...)
     else if arguments.length > 1
-      parent[leaf] = value;
+      parent[leaf] = values[0]; #what to do here?
     parent[leaf]
 
-isExtensible = (existing, value) ->
-  existing? && !_(value).isFunction() && !_(existing).isFunction()
+isExtensible = (existing, values) ->
+  existing? && !_(values).some(_.isFunction) && !_(existing).isFunction()
 
 resolveAncestors = (ancestors, top) ->
   _(ancestors).reduce (ancestor, child) ->
