@@ -22,7 +22,7 @@ resolveAncestors = (ancestors, top) ->
 
 verifyDistinctness = (name, value, existing) ->
   if _(existing).isFunction() && value? && existing != value
-    throw "Cannot define a new function \"#{name}\", because one is already defined."
+    throw "Cannot override \"#{name}\", because it is already defined as a function."
 
 
 #nab whatever used to own window.extend

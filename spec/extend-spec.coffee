@@ -67,7 +67,7 @@ behavesLikeAnExtender = (top) ->
             thrown = e
 
         it "throws an error", ->
-          expect(thrown).toBe "Cannot define a new function \"#{name}\", because one is already defined."
+          expect(thrown).toBe "Cannot override \"#{name}\", because it is already defined as a function."
 
 
       context "passed a function when the one that exists is the same function", ->
