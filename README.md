@@ -43,6 +43,12 @@ You can also override object definitions:
     });
     window.cats; //=> { longCat: 'is long', ceilingCat: 'is watching you' }
 
+It can also accept multiple objects:
+
+    extend('dogs', Barks, {
+       likesBones: true
+    });
+
 ### Extending your own custom namespace root
 
 Your project probably already has a namespace root, so you can tell extend.js to add the `extend` method to your namespace. Let's say your namespace root is `window.pants`:

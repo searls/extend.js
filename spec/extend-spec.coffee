@@ -43,7 +43,10 @@ behavesLikeAnExtender = (top) ->
     name = "panda"
     result = undefined
     context "like functions", ->
-      func = ->
+      func = -> "uno"
+      func2 = -> "dos"
+      func2.prop = "tea"
+
 
       context "passed a new function", ->
         beforeEach ->
@@ -56,48 +59,30 @@ behavesLikeAnExtender = (top) ->
           expect(result).toBe(func)
 
 
-      context "passed a function when one already exists ", ->
-        thrown = undefined
+      context "passed a function when one already exists", ->
         beforeEach ->
           top.extend(name, func)
-          try
-            top.extend name, ->
+          result = top.extend(name, func2)
 
-          catch e
-            thrown = e
+        it "adds properties to the existing function object", ->
+          expect(top.panda.prop).toBe("tea")
 
-        it "throws an error", ->
-          expect(thrown).toBe "Cannot define a new function \"#{name}\", because one is already defined."
-
-
-      context "passed a function when the one that exists is the same function", ->
-        thrown = undefined
-        beforeEach ->
-          top.extend(name, func)
-          try
-            top.extend(name, func)
-          catch e
-            thrown = e
-
-        it "doesn't throw anything", ->
-          expect(thrown).not.toBeDefined()
-
-
-      context "passed a function when the one that exists but no second arg is given", ->
-        result = undefined
-        thrown = undefined
-        beforeEach ->
-          top.extend(name, func)
-          try
-            result = top.extend(name)
-          catch e
-            thrown = e
-
-        it "doesn't throw anything", ->
-          expect(thrown).not.toBeDefined()
-
-        it "returns the defined function", ->
+        it "returns the existing function", ->
           expect(result).toBe(func)
+
+      context "passed multiple functions", ->
+        beforeEach ->
+          result = top.extend(name, func, func2)
+
+        it "extends the 'first' function", ->
+          expect(top.panda).toBe(func)
+
+        it "returns the extended function", ->
+          expect(result).toBe(func)
+
+        it "adds properties to the first function object", ->
+          expect(top.panda.prop).toBe("tea")
+
 
     context "like objects", ->
       obj =
@@ -131,6 +116,24 @@ behavesLikeAnExtender = (top) ->
 
         it "defines the all-new property", ->
           expect(result.c).toBe("C")
+
+      context "passed multiple objects", ->
+        beforeEach ->
+          top.extend(name, obj)
+          result = top.extend name,
+            b: "B'"
+            c: "C"
+          ,
+            c: "C'"
+            d: "D"
+
+        it "merges objects right-to-left", ->
+          expect(result).toEqual
+            a: "A"
+            b: "B'"
+            c: "C'"
+            d: "D"
+
 
     context "passed nothing", ->
       result = undefined
@@ -185,5 +188,3 @@ describe "extend.noConflict", ->
 
   it "returns the .extend function", ->
     expect(result).toBe(theExtendBeingSpecifiedHere)
-
-
