@@ -4,17 +4,18 @@ makeExtender = (top) ->
     leaf = ancestors.pop()
     parent = resolveAncestors(ancestors, top)
 
-
-    if _(parent[leaf]).isEmpty() and !_(parent[leaf]).isFunction()
-      parent[leaf] = _.extend(values...)
-    else
+    if preserveLeaf(parent[leaf])
       _(parent[leaf]).extend(values...)
-    parent[leaf]
+    else
+      parent[leaf] = _.extend(values...)
 
 resolveAncestors = (ancestors, top) ->
   _(ancestors).reduce (ancestor, child) ->
     ancestor[child] ||= {}
   , top
+
+preserveLeaf = (leaf) ->
+ _(leaf).isFunction() or !_(leaf).isEmpty()
 
 #nab whatever used to own window.extend
 originalExtend = window.extend
