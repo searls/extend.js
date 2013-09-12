@@ -1,29 +1,21 @@
 makeExtender = (top) ->
-  (name, value) ->
+  (name, values...) ->
     ancestors = name.split(/[./\\]/g)
     leaf = ancestors.pop()
     parent = resolveAncestors(ancestors, top)
 
-    verifyDistinctness(name, value, parent[leaf])
-
-    if isExtensible(parent[leaf], value)
-      _(parent[leaf]).extend(value)
-    else if arguments.length > 1
-      parent[leaf] = value;
-    parent[leaf]
-
-isExtensible = (existing, value) ->
-  existing? && !_(value).isFunction() && !_(existing).isFunction()
+    if preserveLeaf(parent[leaf])
+      _(parent[leaf]).extend(values...)
+    else
+      parent[leaf] = _.extend(values...)
 
 resolveAncestors = (ancestors, top) ->
   _(ancestors).reduce (ancestor, child) ->
     ancestor[child] ||= {}
   , top
 
-verifyDistinctness = (name, value, existing) ->
-  if _(existing).isFunction() && value? && existing != value
-    throw "Cannot define a new function \"#{name}\", because one is already defined."
-
+preserveLeaf = (leaf) ->
+ _(leaf).isFunction() or !_(leaf).isEmpty()
 
 #nab whatever used to own window.extend
 originalExtend = window.extend
@@ -38,4 +30,3 @@ window.extend.noConflict = ->
   ourExtend = window.extend
   window.extend = originalExtend
   ourExtend
-
