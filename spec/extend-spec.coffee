@@ -1,43 +1,43 @@
 window.context = window.describe
 
-behavesLikeAnExtender = (top) ->
+itBehavesLikeAnExtender = ->
   describe "the names you might specify", ->
     value = {}
     context "passed a single identifier", ->
       beforeEach ->
-        top.extend("panda", value)
+        @subject.extend("panda", value)
 
       it "creates a single object on the top", ->
-        expect(top.panda).toBe(value)
+        expect(@subject.panda).toBe(value)
 
     context "passed period-delimited identifiers", ->
       beforeEach ->
-        top.extend("code.retreat", value)
+        @subject.extend("code.retreat", value)
 
       it "creates an object for each identifier", ->
-        expect(top.code.retreat).toBe(value)
+        expect(@subject.code.retreat).toBe(value)
 
     context "passed forward-slash-delimited identifiers", ->
       beforeEach ->
-        top.extend("pants/sale/time", value)
+        @subject.extend("pants/sale/time", value)
 
       it "creates an object for each identifier", ->
-        expect(top.pants.sale.time).toBe(value)
+        expect(@subject.pants.sale.time).toBe(value)
 
     context "passed back-slash-delimited identifiers", ->
       beforeEach ->
-        top.extend("test\\pollution\\sucks", value)
+        @subject.extend("test\\pollution\\sucks", value)
 
       it "creates an object for each identifier", ->
-        expect(top.test.pollution.sucks).toBe(value)
+        expect(@subject.test.pollution.sucks).toBe(value)
 
 
     context "passed a humorously deep number of identifiers", ->
       beforeEach ->
-        top.extend("a.b.c.d.e.f.g.h.i.j.k.l.m.n.o.p.q.r.$", value)
+        @subject.extend("a.b.c.d.e.f.g.h.i.j.k.l.m.n.o.p.q.r.$", value)
 
       it "still works", ->
-        expect(top.a.b.c.d.e.f.g.h.i.j.k.l.m.n.o.p.q.r.$).toBe(value)
+        expect(@subject.a.b.c.d.e.f.g.h.i.j.k.l.m.n.o.p.q.r.$).toBe(value)
 
   describe "the stuff you might pass it", ->
     name = "panda"
@@ -50,10 +50,10 @@ behavesLikeAnExtender = (top) ->
 
       context "passed a new function", ->
         beforeEach ->
-          result = top.extend(name, func)
+          result = @subject.extend(name, func)
 
         it "defines the function", ->
-          expect(top[name]).toBe(func)
+          expect(@subject[name]).toBe(func)
 
         it "returns the function too", ->
           expect(result).toBe(func)
@@ -61,27 +61,27 @@ behavesLikeAnExtender = (top) ->
 
       context "passed a function when one already exists", ->
         beforeEach ->
-          top.extend(name, func)
-          result = top.extend(name, func2)
+          @subject.extend(name, func)
+          result = @subject.extend(name, func2)
 
         it "adds properties to the existing function object", ->
-          expect(top.panda.prop).toBe("tea")
+          expect(@subject.panda.prop).toBe("tea")
 
         it "returns the existing function", ->
           expect(result).toBe(func)
 
       context "passed multiple functions", ->
         beforeEach ->
-          result = top.extend(name, func, func2)
+          result = @subject.extend(name, func, func2)
 
         it "extends the 'first' function", ->
-          expect(top.panda).toBe(func)
+          expect(@subject.panda).toBe(func)
 
         it "returns the extended function", ->
           expect(result).toBe(func)
 
         it "adds properties to the first function object", ->
-          expect(top.panda.prop).toBe("tea")
+          expect(@subject.panda.prop).toBe("tea")
 
 
     context "like objects", ->
@@ -91,10 +91,10 @@ behavesLikeAnExtender = (top) ->
 
       context "passed a new object", ->
         beforeEach ->
-          result = top.extend(name, obj)
+          result = @subject.extend(name, obj)
 
         it "defines the object", ->
-          expect(top[name]).toBe(obj)
+          expect(@subject[name]).toBe(obj)
 
         it "returns the object", ->
           expect(result).toBe(obj)
@@ -102,8 +102,8 @@ behavesLikeAnExtender = (top) ->
 
       context "passed an object when one already exists", ->
         beforeEach ->
-          top.extend(name, obj)
-          result = top.extend(name,
+          @subject.extend(name, obj)
+          result = @subject.extend(name,
             b: "B'"
             c: "C"
           )
@@ -119,8 +119,8 @@ behavesLikeAnExtender = (top) ->
 
       context "passed multiple objects", ->
         beforeEach ->
-          top.extend(name, obj)
-          result = top.extend name,
+          @subject.extend(name, obj)
+          result = @subject.extend name,
             b: "B'"
             c: "C"
           ,
@@ -139,7 +139,7 @@ behavesLikeAnExtender = (top) ->
       result = undefined
       context "when nothing exists", ->
         beforeEach ->
-          result = top.extend(name)
+          result = @subject.extend(name)
 
         it "returns undefined", ->
           expect(result).not.toBeDefined()
@@ -147,43 +147,45 @@ behavesLikeAnExtender = (top) ->
 
       context "when something already exists", ->
         beforeEach ->
-          top.extend name, "fun!"
-          result = top.extend(name)
+          @subject.extend name, "fun!"
+          result = @subject.extend(name)
 
         it "returns that something", ->
           expect(result).toBe("fun!")
 
     afterEach ->
-      delete top[name]
+      delete @subject[name]
 
 describe ".extend", ->
-  behavesLikeAnExtender(window)
+  beforeEach ->
+    @subject = window
+  itBehavesLikeAnExtender()
 
 describe "extend.myNamespace", ->
-  namespace = {}
-  result = undefined
+  beforeEach ->
+    @subject = {}
+    @result = undefined
 
   context "with an existing namespace object", ->
     beforeEach ->
-      result = extend.myNamespace(namespace)
+      @result = extend.myNamespace(@subject)
+
+    itBehavesLikeAnExtender()
 
     it "it adds an 'extend' function to an arbitrary object", ->
-      expect(namespace.extend).toBeDefined()
+      expect(@subject.extend).toBeDefined()
 
     it "returns the namespace object", ->
-      expect(result).toBe(namespace)
-
-    behavesLikeAnExtender(namespace)
-    # behavesLikeAnExtender(result)
+      expect(@result).toBe(@subject)
 
   context "without an existing namespace object", ->
     beforeEach ->
-      result = extend.myNamespace()
+      @subject = extend.myNamespace()
+
+    itBehavesLikeAnExtender()
 
     it "it adds an 'extend' function to a new namespace object", ->
-      expect(result.extend).toBeDefined()
-
-    # behavesLikeAnExtender(result)
+      expect(@subject.extend).toBeDefined()
 
 describe "extend.noConflict", ->
   theExtendBeingSpecifiedHere = undefined
