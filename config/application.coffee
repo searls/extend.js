@@ -15,6 +15,8 @@ grunt = lineman.grunt
 _ = grunt.util._
 application = lineman.config.extend "application",
 
+  loadNpmTasks: ['grunt-release']
+
   meta:
     banner: """
             /* <%= pkg.name %> - <%= pkg.version %>
@@ -39,6 +41,10 @@ application = lineman.config.extend "application",
         "<%= files.js.app %>"
       ]).compact()
       dest: "<%= files.js.uncompressedDist %>"
+
+  release:
+    options:
+      npm: false
 
 application.uglify.js.files = _({}).tap (config) ->
   config["dist/#{grunt.file.readJSON('package.json').name}.min.js"] = "<%= files.js.uncompressedDist %>"
