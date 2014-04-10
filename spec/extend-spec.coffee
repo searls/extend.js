@@ -173,6 +173,15 @@ describe "extend.myNamespace", ->
 
   behavesLikeAnExtender(namespace)
 
+describe "_.noConflict", ->
+  beforeEach ->
+    @_bak = window._.noConflict()
+
+  behavesLikeAnExtender(window)
+
+  afterEach ->
+    window._ = @_bak
+
 describe "extend.noConflict", ->
   theExtendBeingSpecifiedHere = undefined
   result = undefined

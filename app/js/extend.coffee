@@ -1,3 +1,5 @@
+_ = @_
+
 makeExtender = (top) ->
   (name, values...) ->
     ancestors = name.split(/[./\\]/g)
