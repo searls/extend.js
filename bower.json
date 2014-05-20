@@ -1,0 +1,18 @@
+{
+  "name": "extend",
+  "version": "0.2.0",
+  "main": "dist/extend.js",
+  "ignore": [
+    "app",
+    "config",
+    "spec",
+    "spec-e2e",
+    "tasks",
+    ".travis.yml",
+    "Gruntfile.js",
+    "main.js",
+    "package.json"
+  ],
+  "dependencies": {},
+  "devDependencies": {}
+}
