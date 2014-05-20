@@ -1,4 +1,6 @@
-_ = @_
+root = this
+
+_ = root._
 
 makeExtender = (top) ->
   (name, values...) ->
@@ -19,16 +21,13 @@ resolveAncestors = (ancestors, top) ->
 preserveLeaf = (leaf) ->
  _(leaf).isFunction() or !_(leaf).isEmpty()
 
-#nab whatever used to own window.extend
-originalExtend = window.extend
+originalExtend = root.extend
+root.extend = makeExtender(window)
 
-#overwrite it with our extend
-window.extend = makeExtender(window)
+root.extend.myNamespace = (namespace) -> namespace.extend = makeExtender(namespace)
+root.extend.noConflict = (dependencies = {}) ->
+  _ = dependencies._ if dependencies._?
 
-#sprinkle on utility functions
-window.extend.myNamespace = (namespace) -> namespace.extend = makeExtender(namespace)
-
-window.extend.noConflict = ->
-  ourExtend = window.extend
-  window.extend = originalExtend
+  ourExtend = root.extend
+  root.extend = originalExtend
   ourExtend
