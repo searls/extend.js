@@ -9,8 +9,9 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "lineman": ">=0.11.0",
     "grunt": "^0.4.4",
-    "grunt-release": "^0.7.0"
+    "grunt-release": "^0.7.0",
+    "lineman": "^0.30.0",
+    "lineman-lib": "^0.2.0"
   }
 }
